@@ -1,0 +1,75 @@
+name: rc_app
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.3
+  battery_plus: ^6.0.1
+  intl: ^0.18.1
+  shared_preferences: ^2.0.6
+  cloud_firestore: ^4.17.3
+  firebase_core: ^2.31.0
+  firebase_auth: ^4.19.5
+  flutter_svg: ^2.0.9
+  window_manager: ^0.3.8
+  get_storage: ^2.1.1
+  get: ^4.6.6
+  process_run: ^0.12.1
+  web_socket_channel: ^2.1.0
+  connectivity_plus: ^5.0.2
+  vector_math: ^2.1.0
+  ffi: ^2.0.1
+  flutter_webrtc: ^0.8.4
+  flutter_platform_widgets: ^1.20.0
+  path_provider:
+  provider:
+  image:
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  url_launcher: ^6.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  fonts:
+    - family: CustomIcons
+      fonts:
+        - asset: fonts/CustomIcons.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Medium.ttf
+        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Roboto-Black.ttf
+        - asset : fonts/Roboto-Light.ttf
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+
