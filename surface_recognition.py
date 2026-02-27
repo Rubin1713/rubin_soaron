@@ -5,11 +5,11 @@ import time
 
 # --- CONFIGURATION ---
 RTSP_URL = "rtsp://192.168.144.25:8554/main.264"
-surface_model = YOLO("best2.pt")
-color_model   = YOLO("colorwall.pt")
+surface_model = YOLO("best2_ncnn_model",task="classify")
+color_model   = YOLO("colorwall_ncnn_model",task="classify")
 
 class RTSPStream:
-    def __init__(self, url):
+    def _init_(self, url):
         self.cap = cv2.VideoCapture(url, cv2.CAP_FFMPEG)
         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1) # Force minimum buffering
         self.status, self.frame = self.cap.read()
@@ -46,15 +46,27 @@ while True:
         continue
 
     # 1. Faster Inference: Resize before processing
-    small_frame = cv2.resize(frame, (320, 320))
+    small_frame = cv2.resize(frame, (224,224 ))
 
     # 2. Run Models
-    s_results = surface_model(small_frame, verbose=False, device='cpu')
-    c_results = color_model(small_frame, verbose=False, device='cpu')
+    s_results = surface_model(small_frame, verbose=False)
+    c_results = color_model(small_frame, verbose=False)
 
     # 3. Logic
-    s_name = s_results[0].names[s_results[0].probs.top1] if s_results[0].probs else "N/A"
-    c_name = c_results[0].names[c_results[0].probs.top1] if c_results[0].probs else "N/A"
+    try:
+        if s_results[0].probs is not None:
+            s_id = int(s_results[0].probs.top1)
+            s_name=s_results[0].names[s_id]
+        else:
+            s_name="N/A"
+			
+        if c_results[0].probs is not None:
+            c_id = int(c_results[0].probs.top1)
+            c_name=c_results[0].names[c_id]
+        else:
+            c_name="N/A"
+    except Exception as e:
+        s_name,c_name="Error","Error"
 
     # 4. Fast UI: Only draw on the original frame
     cv2.putText(frame, f"S: {s_name} C: {c_name}", (10, 50), 
